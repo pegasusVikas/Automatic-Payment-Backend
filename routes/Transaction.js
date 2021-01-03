@@ -17,6 +17,10 @@ router.post('/', async(req, res) => {
     privateKey: '0x2ed6138cddc59b2a48529d659898b9a2fe22e045a78989f388faf5530d8bb853'
   };
 
+  const accountSid = 'AC1f425e6850b956ce8adca11c18715306'; 
+  const authToken = 'd17995d9ad7398c9483bfc779bdb952c'; 
+  const client = require('twilio')(accountSid, authToken); 
+
   var amount = req.body.amount; //Rupee
   axios.get(`https://min-api.cryptocompare.com/data/price?fsym=INR&tsyms=ETH`)
     .then((resp) => {
@@ -57,6 +61,18 @@ router.post('/', async(req, res) => {
             } else {
               console.log('txHash', txHash);
               //fetching transaction details from hash
+              //sending message to phone
+                      client.messages 
+                      .create({ 
+                        body: 'Hey there !!! this is from Automated Backend server', 
+                        from: '+13344893719',       
+                        to: '+918897317943' 
+                      }) 
+                      .then(message => console.log(message.sid)) 
+                      .done();
+                  
+              web3.eth.getTransaction
+
               web3.eth.getTransaction(`${txHash}`)
                 .then((receipt) => {
                   //console.log(receipt);
@@ -72,6 +88,7 @@ router.post('/', async(req, res) => {
                       json.INR.tax = WeiToRs(receipt.gas*receipt.gasPrice)
                       json.ETH = receipt;
                       res.json(json);
+                      console.log(json);
 
                     }).catch((err) => res.json(err));
                 }).catch((err) => res.json(err));
