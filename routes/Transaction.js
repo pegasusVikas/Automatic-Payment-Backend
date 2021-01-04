@@ -70,14 +70,7 @@ router.post('/', async (req, res) => {
             console.log("this is receipt",receipt);
             axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR`)
             .then((ETI)=>{
-            client.messages 
-              .create({ 
-                body: 'we are from automated payments backend', 
-                from: '+13344893719',       
-                to: '+918897317943' 
-              }) 
-              .then(message => console.log(message.sid)) 
-              .done();
+            
             //converting Wei to Rupee
             const WeiToRs=(val)=>{
               return parseFloat(web3.utils.fromWei(`${val}`, "ether"))*ETI;
@@ -86,6 +79,15 @@ router.post('/', async (req, res) => {
             value=parseInt(txObject.value,16);
             gasLimit=parseInt(txObject.gasLimit,16);
             gasPrice=parseInt(txObject.gasPrice,16);
+
+            client.messages 
+              .create({ 
+                body: `your transaction is done, amount:${value} ETH`, 
+                from: '+13344893719',       
+                to: '+916309296046' 
+              }) 
+              .then(message => console.log(message.sid)) 
+              .done();
 
             json.INR.amount=WeiToRs(value);
             json.INR.tax=WeiToRs(gasLimit*gasPrice)
@@ -101,6 +103,14 @@ router.post('/', async (req, res) => {
       })
       .on('transactionHash',(txHash)=>{
         console.log('txHash', txHash);
+        client.messages 
+              .create({ 
+                body: `your transaction is on queue`, 
+                from: '+13344893719',       
+                to: '+916309296046' 
+              }) 
+              .then(message => console.log(message.sid)) 
+              .done();
       })
       .on('error', (err)=>{console.error(err);res.status=501;res.json({err:err.message})})
     }
