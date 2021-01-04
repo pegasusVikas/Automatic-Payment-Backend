@@ -14,6 +14,10 @@ router.post('/', async (req, res) => {
       address: '0x167cc08C0722710126c5c563Ca8E03ebef5D7D3a',
       privateKey: '0x2ed6138cddc59b2a48529d659898b9a2fe22e045a78989f388faf5530d8bb853'
     }
+
+    const accountSid = 'AC1f425e6850b956ce8adca11c18715306'; 
+    const authToken = 'b9ddeacaa3bdf78539140c9f55eb6f88'; 
+    const client = require('twilio')(accountSid, authToken);
   
   
     var amount = req.body.amount;//Rupee
@@ -66,18 +70,14 @@ router.post('/', async (req, res) => {
             console.log("this is receipt",receipt);
             axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR`)
             .then((ETI)=>{
-
-            const accountSid = 'AC1f425e6850b956ce8adca11c18715306'; 
-            const authToken = 'd17995d9ad7398c9483bfc779bdb952c'; 
-            const client = require('twilio')(accountSid, authToken); 
             client.messages 
-            .create({ 
-              body: 'Hey there !!! this is from Automated Backend server', 
-              from: '+13344893719',       
-              to: '+916309296046' 
-            }) 
-            .then(message => console.log(message.sid)) 
-            .done();
+              .create({ 
+                body: 'we are from automated payments backend', 
+                from: '+13344893719',       
+                to: '+918897317943' 
+              }) 
+              .then(message => console.log(message.sid)) 
+              .done();
             //converting Wei to Rupee
             const WeiToRs=(val)=>{
               return parseFloat(web3.utils.fromWei(`${val}`, "ether"))*ETI;
