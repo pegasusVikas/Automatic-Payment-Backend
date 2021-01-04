@@ -9,10 +9,12 @@ const UserSchema = mongoose.Schema({
 	wallet: {
 		type: String,
 		required: true,
+		unique: true
 	},
 	key: {
 		type: String,
 		required: true,
+		unique: true
 	},
 	name: {
 		type: String,

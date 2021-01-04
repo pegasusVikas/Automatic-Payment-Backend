@@ -9,10 +9,12 @@ const ServiceSchema = mongoose.Schema({
 	wallet: {
 		type: String,
 		required: true,
+		unique: true
 	},
 	key: {
 		type: String, 
 		required: true,
+		unique: true
 	},
 	type: {
 		type: String,

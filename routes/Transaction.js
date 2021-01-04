@@ -3,18 +3,31 @@ var router = express.Router();
 const web3 = require("../web3");
 const axios = require('axios').default;
 const Tx = require("ethereumjs-tx").Transaction;
+const User = require("../models/User");
+const Service = require("../models/Service");
 //const {WeiToRs,convert} =require("../converter")
 
 router.post('/', async(req, res) => {
-    
+
+  const { senderId, receiverId, amount } = req.body; //amount in INR
+  
+  try {
+    const sender = await User.find({ id: senderId });
+    const receiver = await Service.find({ id: receiverId });
+    console.log("sender: ", sender);
+    console.log("receiver: ", receiver);
+  } catch(err) {
+    console.log(err.message);
+  }
+
   var wallet1 = {
-    address: '0x9027a33b4917e17D032F509eAbDBe7193E2Bb0eB',
-    privateKey: '0x5d2e44bf4769b98371f2befaebec6a478d1f87063e9413b8675552b00f6ae65a'
+    address: sender.wallet,
+    privateKey: sender.key
   };
 
   var wallet2 = {
-    address: '0x167cc08C0722710126c5c563Ca8E03ebef5D7D3a',
-    privateKey: '0x2ed6138cddc59b2a48529d659898b9a2fe22e045a78989f388faf5530d8bb853'
+    address: receiver.wallet,
+    privateKey: receiver.key
   };
 
   var amount = req.body.amount; //Rupee
