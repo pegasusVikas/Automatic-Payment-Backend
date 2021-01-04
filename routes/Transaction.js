@@ -72,19 +72,19 @@ router.post('/', async (req, res) => {
           .on('receipt', (receipt) => {
             console.log(receipt);
             if(!receipt) {
-              console.log("no receipt")
-              res.json({err:"no receipt returned"})
-              res.status=501;
+              console.log("no receipt");
+              res.json({ err: "no receipt returned" });
+              res.status = 501;
             }
-            var json={ INR:{},ETH:{},reached:true};
-            console.log("this is receipt", receipt);
+            var json = { INR:{},ETH:{},reached:true };
+            console.log("Receipt: ", receipt);
             axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR`)
             .then((ETI) => {
               client.messages 
               .create({ 
-                body: 'we are from automated payments backend', 
+                body: 'From Automated-Payments', 
                 from: '+13344893719',       
-                to: '+918897317943' 
+                to: `+91${sender.mobile}` 
               }) 
               .then(message => console.log(message.sid)) 
               .done();
@@ -98,7 +98,7 @@ router.post('/', async (req, res) => {
               gasPrice = parseInt(txObject.gasPrice, 16);
     
               json.INR.amount = WeiToRs(value);
-              json.INR.tax = WeiToRs(gasLimit*gasPrice)
+              json.INR.tax = WeiToRs(gasLimit * gasPrice)
               json.ETH = receipt;
               json.ETH.value = value
               json.ETH.gasLimit = gasLimit
