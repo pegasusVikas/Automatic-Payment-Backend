@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
       };
 
       const accountSid = 'AC1f425e6850b956ce8adca11c18715306';
-      const authToken = 'b9ddeacaa3bdf78539140c9f55eb6f88';
+      const authToken = '8628b94f5707af9e90d9899cc6ba8fa2';
       const client = require('twilio')(accountSid, authToken);
 
       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=INR&tsyms=ETH`)
@@ -92,7 +92,7 @@ router.post('/', async (req, res) => {
 
                       client.messages
                         .create({
-                          body: `your transaction is done, amount:${value} ETH`,
+                          body: `your transaction is done, amount:${value} Wei`,
                           from: '+13344893719',
                           to: '+916309296046'
                         })
