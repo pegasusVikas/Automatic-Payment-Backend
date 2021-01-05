@@ -1,10 +1,28 @@
 var express = require('express');
 var router = express.Router();
 const web3 = require("../web3");
+const User = require("../models/User");
+const Service = require("../models/Service");
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.json({ text: "send something" })
+  res.json({ text: "send something" });
+});
+
+router.post('/user', (req, res) => {
+  const { id, wallet, key, name, mobile, email, company, model, plate } = req.body;
+  User.create({ id, wallet, key, name, mobile, email, company, model, plate }, (err, doc) => {
+    if(err) console.log(err.message);
+    else res.json(doc);
+  });
+});
+
+router.post('/service', (req, res) => {
+  const { id, wallet, key, type, message } = req.body;
+  Service.create({ id, wallet, key, type, message }, (err, doc) => {
+    if(err) console.log(err.message);
+    else res.json(doc);
+  });
 });
 
 router.get('/create', (req, res) => {
