@@ -94,7 +94,7 @@ router.post('/', async (req, res) => {
                         .create({
                           body: `your transaction is done, amount:${value} Wei\n you can check your transaction here https://kovan.etherscan.io/tx/${receipt.transactionHash}`,
                           from: '+13344893719',
-                          to: '+916309296046'
+                          to: `+91${sender.mobile}`
                         })
                         .then(message => console.log(message.sid))
                         .done();
@@ -115,9 +115,9 @@ router.post('/', async (req, res) => {
                   console.log('txHash', txHash);
                   client.messages
                     .create({
-                      body: `your transaction is on queue`,
+                      body: `Your transaction has been queued.`,
                       from: '+13344893719',
-                      to: '+916309296046'
+                      to: `+91${sender.mobile}`
                     })
                     .then(message => console.log(message.sid))
                     .done();
