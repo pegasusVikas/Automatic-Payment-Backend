@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
       };
 
       const accountSid = 'AC1f425e6850b956ce8adca11c18715306';
-      const authToken = '9fec6af2f3b9ed48e4fe583e6e4d1425';
+      const authToken = '6afac31880661a0b0143d0f362e41630';
       const client = require('twilio')(accountSid, authToken);
 
       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=INR&tsyms=ETH`)
