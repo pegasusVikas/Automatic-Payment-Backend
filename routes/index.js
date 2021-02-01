@@ -7,7 +7,7 @@ const Service = require("../models/Service");
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.json({ text: "send something",
-        automatedPaymentVersion:"1.0.1" });
+        automatedPaymentVersion:"1.1.0" });
 });
 
 router.post('/user', (req, res) => {
