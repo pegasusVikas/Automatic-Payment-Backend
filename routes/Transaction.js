@@ -92,7 +92,7 @@ router.post('/', async (req, res) => {
 
                       client.messages
                         .create({
-                          body: `your transaction is done, amount:${value} Wei\n you can check your transaction here https://kovan.etherscan.io/tx/${receipt.transactionHash}`,
+                          body: `${receiver.message}.\n\nyour transaction is done, amount:${value} Wei\n\n\n you can check your transaction here https://kovan.etherscan.io/tx/${receipt.transactionHash}`,
                           from: '+13344893719',
                           to: `+91${sender.mobile}`
                         })

@@ -6,6 +6,14 @@ const ServiceSchema = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+	name:{
+		type: String,
+		required: true
+	},
+	address: {
+		type: String,
+		required: true
+	},
 	wallet: {
 		type: String,
 		required: true,
@@ -19,12 +27,11 @@ const ServiceSchema = mongoose.Schema({
 	type: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	message: {
 		type: String,
 		required: true
-	}
+	},
 });
 
 module.exports = mongoose.model("Service", ServiceSchema);

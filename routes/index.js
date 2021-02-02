@@ -7,7 +7,7 @@ const Service = require("../models/Service");
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.json({ text: "send something",
-        automatedPaymentVersion:"1.1.1" });
+        automatedPaymentVersion:"2.0.0" });
 });
 
 router.post('/user', (req, res) => {
@@ -19,8 +19,8 @@ router.post('/user', (req, res) => {
 });
 
 router.post('/service', (req, res) => {
-  const { id, wallet, key, type, message } = req.body;
-  Service.create({ id, wallet, key, type, message }, (err, doc) => {
+  const { id, name,address,wallet, key, type, message } = req.body;
+  Service.create({ id:id, name:name,address:address, wallet:wallet, key:key, type:type, message:message }, (err, doc) => {
     if(err) console.log(err.message);
     else res.json(doc);
   });
