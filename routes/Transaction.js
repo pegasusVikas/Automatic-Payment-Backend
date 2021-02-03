@@ -126,8 +126,8 @@ router.post('/', async (req, res) => {
             }
           }).catch((err) => { console.error(err); res.status = 501; res.json({ err: err.message }) })
         }).catch((err) => { console.error(err); res.status = 501; res.json({ err: err.message }) })
-      })
-      })
+      }).catch((err) => { console.error(err); res.status = 501; res.json({ err: err.message }) })
+      }).catch((err) => { console.error(err); res.status = 501; res.json({ err: err.message }) })
     })
 
 
