@@ -1,9 +1,10 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 const web3 = require("../web3");
-const axios = require("axios").default
+const axios = require("axios").default;
 //const {WeiToRs} =require("../converter")
 
+/* Check balance */
 router.post('/', (req, res) => {
 	web3.eth.getBalance(req.body.id, (err, bal) => {
 		if (err) {

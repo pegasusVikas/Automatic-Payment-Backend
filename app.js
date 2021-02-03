@@ -6,15 +6,14 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var payRouter =require('./routes/Transaction')
-var balanceRouter =require('./routes/balance');
+var payRouter = require('./routes/Transaction')
+var balanceRouter = require('./routes/balance');
 
 var connect = require('./DBconnect');
 
 var app = express();
 
-
-app.set('port',(process.env.PORT || '3000'));
+app.set('port', (process.env.PORT || '3000'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,10 +42,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const server=app.listen(app.get('port'),()=>{
+const server = app.listen(app.get('port'), () => {
   var host = server.address();
   var port = server.address().port;
   console.log(`Server started at http://localhost:${port}`)
-})
+});
 
 module.exports = app;
