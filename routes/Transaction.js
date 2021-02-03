@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
                 gasPrice: web3.utils.toHex(web3.utils.toWei('1', 'gwei')),//gasPrice
                 chainId: web3.utils.toHex(42)
               }
-              //transaction cost =gasLimit*gasPrice
+              //transaction cost = gasLimit * gasPrice;
 
               //sign the transaction
               const tx = new Tx(txObject, { chain: 'kovan' });
@@ -81,7 +81,7 @@ router.post('/', async (req, res) => {
                   axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=INR`)
                     .then((ETI) => {
 
-                      //converting Wei to Rupee
+                      // converting Wei to INR
                       const WeiToRs = (val) => {
                         return parseFloat(web3.utils.fromWei(`${val}`, "ether")) * ETI;
                       }
@@ -130,5 +130,4 @@ router.post('/', async (req, res) => {
       }).catch((err) => { console.error(err); res.status = 501; res.json({ err: err.message }) })
     })
 
-
-    module.exports = router
+module.exports = router;

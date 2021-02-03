@@ -7,9 +7,10 @@ const Service = require("../models/Service");
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.json({ text: "send something",
-        automatedPaymentVersion:"2.0.0" });
+    automatedPaymentVersion:"2.0.0" });
 });
 
+/* Create a user */
 router.post('/user', (req, res) => {
   const { id, wallet, key, name, mobile, email, company, model, plate } = req.body;
   User.create({ id, wallet, key, name, mobile, email, company, model, plate }, (err, doc) => {
@@ -18,6 +19,7 @@ router.post('/user', (req, res) => {
   });
 });
 
+/* Create a service */
 router.post('/service', (req, res) => {
   const { id, name,address,wallet, key, type, message } = req.body;
   Service.create({ id:id, name:name,address:address, wallet:wallet, key:key, type:type, message:message }, (err, doc) => {
@@ -26,6 +28,7 @@ router.post('/service', (req, res) => {
   });
 });
 
+/* Create a web3 account */
 router.get('/create', (req, res) => {
   let genKeyPairs = web3.eth.accounts.create();
   res.json(genKeyPairs);
