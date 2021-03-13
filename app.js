@@ -13,7 +13,7 @@ var connect = require('./DBconnect');
 
 var app = express();
 
-app.set('port', (process.env.PORT || '3000'));
+app.set('port', (process.env.PORT || '5000'));
 
 app.use(logger('dev'));
 app.use(express.json());

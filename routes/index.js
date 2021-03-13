@@ -15,6 +15,29 @@ const gen = () => {
   }
 };
 
+const respond = (res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type');
+  res.setHeader('Access-Control-Allow-Methods', ['POST', 'PUT', 'DELETE']);
+  return res.send("hi");
+}
+
+router.options('/register-user', (req, res) => {
+  respond(res);
+});
+
+router.options('/register-service', (req, res) => {
+  respond(res);
+});
+
+router.options('/user-login', (req, res) => {
+  respond(res);
+});
+
+router.options('/service-login', (req, res) => {
+  respond(res);
+})
+
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.json({ text: "send something",
@@ -49,6 +72,7 @@ router.post('/register-user', async(req, res) => {
             } catch (err) {
               console.log(err.message);
             }
+            res.setHeader("Access-Control-Allow-Origin", "*");
             res.json(doc);
           }
         });
@@ -63,7 +87,12 @@ router.post('/user-login', async (req, res) => {
   User.findOne({ email }, async(err, user) => {
     if(err) console.log(err.message);
     else {
-      (await bcrypt.compare(password, user.password)) ? res.send(true) : res.send(false);
+      if (!user) res.json({ "err": "user not found" });
+      if(await bcrypt.compare(password, user.password)) {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.send(user.hashes);
+      } 
+      else res.send(false);
     }
   }); 
 });
@@ -90,6 +119,7 @@ router.post('/register-service', async(req, res) => {
       } catch (err) {
         console.log(err.message);
       }
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.json(doc);
     }
   });
@@ -101,7 +131,12 @@ router.post('/service-login', async(req, res) => {
   Service.findOne({ email }, async(err, service) => {
     if(err) console.log(err.message);
     else {
-      (await bcrypt.compare(password, service.password)) ? res.json(true) : res.json(false);
+      if (!user) res.json({ "err": "service id not found" });
+      if(await bcrypt.compare(password, user.password)) {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.send(service.hashes);
+      } 
+      else res.send(false);
     }
   });
 });
