@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 
       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=INR&tsyms=ETH`)
         .then((resp) => {
-          amount = (amount * resp.data["ETH"]).toFixed(18); //float point precsion
+          amount = (amount * resp.data["ETH"]).toFixed(18); // floating point precision
 
           if (wallet1.privateKey.slice(0, 2) === "0x") {
             wallet1.privateKey = wallet1.privateKey.slice(2);
@@ -98,7 +98,10 @@ router.post('/', async (req, res) => {
                         })
                         .then(message => console.log(message.sid))
                         .done();
-
+                      sender.hashes.push(receipt.transactionHash);
+                      receiver.hashes.push(receipt.transactionHash); 
+                      sender.save();
+                      receiver.save();
                       json.INR.amount = WeiToRs(value);
                       json.INR.tax = WeiToRs(gasLimit * gasPrice)
                       json.ETH = receipt;

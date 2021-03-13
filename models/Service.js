@@ -6,8 +6,12 @@ const ServiceSchema = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	name:{
+	name: {
 		type: String,
+		required: true
+	},
+	email: {
+		type: String, 
 		required: true
 	},
 	address: {
@@ -32,6 +36,14 @@ const ServiceSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	password: {
+		type: String,
+		required: true
+	},
+	hashes: {
+		type: Array,
+		default: []
+	}
 });
 
 module.exports = mongoose.model("Service", ServiceSchema);
